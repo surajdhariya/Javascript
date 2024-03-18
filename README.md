@@ -129,6 +129,123 @@ public class P6b extends JFrame implements ActionListener
 
 
 
+/*
+Pracs 6 - Swing
+c) Create a Swing application to demonstrate use of scrollpane to change its color selected using colour chooser.
+*/
+
+import javax.swing.*;
+import javax.swing.text.DefaultHighlighter;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class P6c extends JFrame implements ActionListener 
+{
+    	private JTextArea textArea;
+    	private JScrollPane scrollPane;
+    	private JButton changeColorButton;
+    	private Color selectedColor;
+
+    	public P6c() 
+	{
+		// Set the title of the JFrame
+        	super("Swing - Text Highlighter App"); 
+        
+		// Set default close operation
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+        
+		// Set the size of the JFrame
+		setSize(400, 300); 
+
+        	// Create a JTextArea to display text
+        	textArea = new JTextArea("This is a JTextArea inside a JScrollPane");
+
+		// Enable line wrapping
+        	textArea.setLineWrap(true); 
+        
+		// Wrap at word boundaries
+		textArea.setWrapStyleWord(true); 
+
+        	// Create a JScrollPane to hold the JTextArea
+        	scrollPane = new JScrollPane(textArea);
+
+		// Always show vertical scrollbar
+        	scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); 
+        
+		// Always show horizontal scrollbar	scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS); 
+
+        	// Create a JButton to open the color chooser
+        	changeColorButton = new JButton("Change Color");
+
+		// Register ActionListener to the button
+        	changeColorButton.addActionListener(this); 
+
+        	// Add components to the JFrame
+        	getContentPane().setLayout(new BorderLayout());
+        	getContentPane().add(scrollPane, BorderLayout.CENTER);
+        	getContentPane().add(changeColorButton, BorderLayout.SOUTH);
+
+        	// Make frame visible
+        	setVisible(true); // Set the JFrame to be visible
+    	}//P6c() 
+
+    	// ActionListener implementation
+    	@Override
+    	public void actionPerformed(ActionEvent e) 
+	{
+        	if (e.getSource() == changeColorButton) 
+		{ 
+			// Check if the change color button is clicked
+            		// Create a JColorChooser
+            		selectedColor = JColorChooser.showDialog(this, "Choose Highlight Color", selectedColor);
+            		if (selectedColor != null) 
+			{ 
+				// If a color is selected
+                		highlightSelectedText(); // Highlight the selected text with the chosen color
+            		}//if (selectedColor...)
+        	}//if (e.getSource()...)
+    	}//actionPerformed()
+
+    	// Method to highlight the selected text with the chosen color
+    	private void highlightSelectedText() 
+	{
+        	// Get the start and end positions of the selected text
+        	int start = textArea.getSelectionStart();
+        	int end = textArea.getSelectionEnd();
+
+        	// Create a highlighter and highlight painter
+        	DefaultHighlighter highlighter = (DefaultHighlighter) textArea.getHighlighter();
+        	DefaultHighlighter.DefaultHighlightPainter highlightPainter = new 							DefaultHighlighter.DefaultHighlightPainter(selectedColor);
+
+        	try 
+		{
+            		// Add the highlight to the selected text
+            		highlighter.addHighlight(start, end, highlightPainter);
+        	}//try 
+		catch (Exception e) 
+		{
+            		e.printStackTrace();
+        	}//catch()
+    	}//highlightSelectedText()
+
+   	// Main method to start the application
+    	public static void main(String[] args) 
+	{
+        	// Create and run the TextHighlighterApp
+        	SwingUtilities.invokeLater(new Runnable() 
+		{
+            		@Override
+            		public void run() 
+			{
+                		new P6c(); // Create an instance of TextHighlighterApp
+            		}//run()
+        	});//SwingUtilities.invokeLater()
+    	}//main()
+}//class P6c
+
+
+
 
 
 
