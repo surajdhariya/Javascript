@@ -1,3 +1,4 @@
+https://docs.google.com/document/d/13H0cejnFHrKxOYtOEu2R-KcXMbdMe99V-nUMOxm0dJs/edit?usp=sharing
 Practical no. 1
 
 Aim: Introduction to Arduino circuits and breadboarding. Blinking of LEDs
